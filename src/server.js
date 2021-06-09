@@ -5,10 +5,11 @@ const path = require("path")
 const bodyParser = require('body-parser')
 const fs = require('fs')
 const morganBody = require('morgan-body')
+const moment = require('moment')
 
 server.use(bodyParser.json())
 const log = fs.createWriteStream(
-  path.join(__dirname, "./logs", "jobscalc.log"), {flags:"a"}
+  path.join(__dirname, "./logs", `jobscalc-${moment().format('YYYY-MM-DD')}.log`), {flags:"w"}
 )
 morganBody(server,
   {
