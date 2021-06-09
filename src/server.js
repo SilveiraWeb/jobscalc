@@ -2,6 +2,19 @@ const express = require("express")
 const server = express()
 const routes = require("./routes")
 const path = require("path")
+const bodyParser = require('body-parser')
+const fs = require('fs')
+const morganBody = require('morgan-body')
+
+server.use(bodyParser.json())
+const log = fs.createWriteStream(
+  path.join(__dirname, "./logs", "jobscalc.log"), {flags:"a"}
+)
+morganBody(server,
+  {
+    noColors:true,
+    stream:log
+  })
 
 const port= normalizePort(process.env.PORT || 3000);//normalizando porta
 server.set('port',  port)// definindo porta
